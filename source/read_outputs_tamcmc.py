@@ -213,7 +213,7 @@ def getstats_bin(dir_tamcmc_outputs, process_name, phase='A', chain=0, first_ind
 	#print('--')
 	return loglikelihood, logprior, logposterior
 
-def bin2txt(dir_tamcmc_outputs, process_name, phase='A', chain=0, first_index=0, period=1, erase_tmp=True, cpp_path='cpp_prg/', outdir='tmp/', get_plength=False):
+def bin2txt(dir_tamcmc_outputs, process_name, phase='A', chain=0, first_index=0, last_index=-1, period=1, erase_tmp=True, cpp_path='cpp_prg/', outdir='tmp/', get_plength=False):
 	'''
 		A function that calls bin2txt and read the outputs in order to return the samples for each parameters in a matrix form
 		update on 18 Nov 2022: adding isfixed output: Specifies if a parameters is fixed or is a variable
@@ -221,7 +221,7 @@ def bin2txt(dir_tamcmc_outputs, process_name, phase='A', chain=0, first_index=0,
 	'''
 	core_filename=dir_tamcmc_outputs + '/' + process_name + '/outputs/' + process_name + '_' + phase + '_params'
 	#process = Popen([cpp_path+"./bin2txt", core_filename, str(chain), outdir, str(first_index), str(period)], stdout=PIPE, stderr=PIPE)	
-	call([cpp_path+"./bin2txt", core_filename, str(chain), outdir, str(first_index), str(period)])
+	call([cpp_path+"./bin2txt", core_filename, str(chain), outdir, str(first_index), str(last_index), str(period)])
 	#time.sleep(1.)
 	#
 	# Iterate over all of the available files in the directory
@@ -237,9 +237,10 @@ def bin2txt(dir_tamcmc_outputs, process_name, phase='A', chain=0, first_index=0,
 		print('           - Chain Index     : ', chain)
 		print('           - Output Directory: ', outdir)
 		print('           - First Index     : ', first_index)
+		print('           - Last Index     : ', last_index)
 		print('           - Period          : ', period)
 		print('       Executed command: ')
-		print('           '+cpp_path +'./bin2txt ', core_filename, ' ', str(chain), ' ', outdir, ' ', str(first_index), ' ', str(period))
+		print('           '+cpp_path +'./bin2txt ', core_filename, ' ', str(chain), ' ', outdir, ' ', str(first_index), ' ',  str(last_index), ' ', str(period))
 		print(' --- ')	
 		print('       Returned at Execution: ')
 		res = process.communicate()
