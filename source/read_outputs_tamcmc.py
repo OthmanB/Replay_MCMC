@@ -618,7 +618,7 @@ def read_datafile(file_in):
 			key=d.strip()[0]
 		else:
 			key=""
-		if key != "#" and key != "":
+		if key != "#" and key !='!' and key !='*' and key != "":
 			line=d.split()
 			if k == 0:
 				output=np.zeros((Nlines, len(line)), dtype=float)
